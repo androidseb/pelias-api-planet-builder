@@ -10,17 +10,19 @@ set -e
 # production-ready pelias API.
 ################################################################################
 
-echo "$(date) - Step 1: install base dependencies">>~/logs_pelias_setup.txt
+
 ################################################################################
 # Step 1: install base dependencies
 ################################################################################
+echo "$(date) - Step 1: install base dependencies">>~/logs_pelias_setup.txt
 apt-get update -qq
 apt-get install -y docker docker-compose nginx
 
-echo "$(date) - Step 2: dedicated user creation">>~/logs_pelias_setup.txt
+
 ################################################################################
 # Step 2: dedicated user creation
 ################################################################################
+echo "$(date) - Step 2: dedicated user creation">>~/logs_pelias_setup.txt
 export USERNAME=pelias
 export USERHOME=/home/$USERNAME
 export PELIAS_PROJECT="planet"
@@ -40,10 +42,19 @@ cp ./$USER_SCRIPT_FILE_NAME $USERHOME/$USER_SCRIPT_FILE_NAME
 chown $USERNAME $USERHOME/$USER_SCRIPT_FILE_NAME
 chmod +x $USERHOME/$USER_SCRIPT_FILE_NAME
 
-echo "$(date) - Step 3: pelias full setup as the user">>~/logs_pelias_setup.txt
+
 ################################################################################
-# Step 3: pelias full setup as the user
+# Step 3: setup boot script to start pelias on boot
 ################################################################################
+echo "$(date) - Step 3: setup boot script to start pelias on boot">>~/logs_pelias_setup.txt
+echo "su $USERNAME -c \"sh $USERHOME/start_pelias.sh\"">>/etc/init.d/start_pelias.sh
+chmod +x /etc/init.d/start_pelias.sh
+update-rc.d start_pelias.sh defaults
+
+################################################################################
+# Step 4: pelias full setup as the user
+################################################################################
+echo "$(date) - Step 4: pelias full setup as the user">>~/logs_pelias_setup.txt
 cd $USERHOME
 su $USERNAME -c "sh $USERHOME/$USER_SCRIPT_FILE_NAME"
 

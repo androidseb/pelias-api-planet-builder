@@ -22,6 +22,10 @@ export PATH=$PATH:$USERHOME/bin
 # cwd to the pelias project dir
 cd $USERHOME/code/docker/projects/$PELIAS_PROJECT
 
+# create the start_pelias.sh file to be run by root on boot
+echo "cd $(pwd)">~/start_pelias.sh
+echo "$USERHOME/bin/pelias compose up">>~/start_pelias.sh
+
 # create the env file as we want it
 echo "$(date) - User level setup - compose file configuration">>~/logs_pelias_setup.txt
 echo "COMPOSE_PROJECT_NAME=$USERNAME" > .env
