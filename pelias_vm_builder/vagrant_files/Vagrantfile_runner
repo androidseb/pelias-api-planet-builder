@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This vagrant file is meant for running an already built and added
+# Pelias Vagrant box
+Vagrant.configure("2") do |config|
+  config.vm.box = "pelias_api"
+
+  # Disable automatic box update checking.
+  config.vm.box_check_update = false
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine and only allow access
+  # via 127.0.0.1 to disable public access
+  config.vm.network "forwarded_port", guest: 4000, host: 4000, host_ip: "127.0.0.1"
+
+  config.vm.provider "virtualbox" do |vb|
+    v.cpus = 8
+    vb.memory = "14000"
+  end
+end

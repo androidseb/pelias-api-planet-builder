@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# This vagrant file is meant for building a pelias VM
+# The VM run using that file will
+# - initialize pelias services
+# - download all the data for a planet setup
+# - index all the data for a planet setup
+# - start the REST API available on port 4000
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.box_version = "20190426.0.0"
+  config.disksize.size = '500GB'
+
+  # Disable automatic box update checking. If you disable this, then
+  # boxes will only be checked for updates when the user runs
+  # `vagrant box outdated`. This is not recommended.
+  config.vm.box_check_update = false
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  config.vm.synced_folder "./vm_folder", "/vagrant_data"
+
+  config.vm.provider "virtualbox" do |vb|
+    v.cpus = 8
+    vb.memory = "14000"
+  end
+
+  # Enable provisioning with a shell script.
+  config.vm.provision "shell", inline: <<-SHELL
+    cd /vagrant_data
+    sh ./pelias_setup_main_as_root.sh
+  SHELL
+end
