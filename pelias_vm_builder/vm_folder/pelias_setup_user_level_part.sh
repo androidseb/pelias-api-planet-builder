@@ -9,6 +9,21 @@ cd $USERHOME
 # create directories
 mkdir code data bin
 
+# TODO: try un-commenting this section and replacing
+# pelias prepare all
+# WITH
+# pelias prepare interpolation
+# pelias prepare placeholder
+#
+# download Valhalla polyline extract to the data dir
+#mkdir data/polylines
+#cd data/polylines
+## getting the latest download link from https://geocode.earth/data and downloading it with wget
+#wget $(curl https://geocode.earth/data|grep https://s3.amazonaws.com/geocodeearth-public-data/osm|cut -d \" -f2)
+##gunzip planet-latest-valhalla.polylines.0sv.gz
+#gunzip planet*.gz
+#cd ../..
+
 # clone repo
 cd code
 git clone https://github.com/pelias/docker.git
