@@ -14,8 +14,22 @@ I hope this work will be helpful to people and that people experimenting and bui
 I am not willing to invest time to take feature requests at the moment since this project addresses my needs as is. If you find a way to improve the project and want to build it and then submit it as a pull request, I'm willing to work with you to merge your work into the current code though.
 
 
-## Usage overview
+## Simple usage overview
 
+I have created a Vagrant box Vagrant cloud, and I have a dedicated machine to building new versions continuously.
+
+The easiest way is to use the already built Vagrant box.
+
+* install [Vagrant](https://www.vagrantup.com/downloads.html)
+* initialize the Vagrantfile: `vagrant init theandroidseb/pelias_planet_api`
+* start Vagrant: `vagrant up`
+* wait a few hours
+* (optional) verify that the API is up: `curl http://localhost:4000/v1/search?text=portland`
+* et voilà !
+
+## Advanced Usage overview
+
+If you don't want to use the pre-made Vagrant images and want to build and import them yourself, you can use the scripts of this project.
 There are 3 phases to using this script:
 1. Initial configuration and setup
 2. Building a Pelias planet API Vagrant box
