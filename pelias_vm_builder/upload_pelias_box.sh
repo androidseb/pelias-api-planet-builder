@@ -23,4 +23,4 @@ if [ $0 != "upload_pelias_box.sh" ]
     exit
 fi
 
-vagrant cloud publish theandroidseb/pelias_planet_api $2 vitualbox $1 --version-description "Version $2" --force --release
+vagrant cloud publish theandroidseb/pelias_planet_api $2 virtualbox $1 --version-description "Version $2" --force --release
