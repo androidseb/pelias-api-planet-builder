@@ -30,6 +30,7 @@ sh ./install_vagrant.sh
 
 # Create a dedicated pelias user
 useradd -d $USERHOME -s /bin/bash -m $USERNAME
+usermod -G vboxusers $USERNAME
 chmod a+x $USERHOME
 
 # Copy the vagrant files into the newly created user's home folder
