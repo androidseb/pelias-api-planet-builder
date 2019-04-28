@@ -1,8 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# This vagrant file is meant for running an already built and added
-# Pelias Vagrant box
+# This vagrant file is meant for running the public pre-packaged box
 Vagrant.configure("2") do |config|
   config.vm.box = "theandroidseb/pelias_planet_api"
 
