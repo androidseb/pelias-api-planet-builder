@@ -21,8 +21,8 @@ I have created a Vagrant box Vagrant cloud, and I have a dedicated machine to bu
 The easiest way is to use the already built Vagrant box.
 
 * install [Vagrant](https://www.vagrantup.com/downloads.html)
-* initialize the Vagrantfile: `vagrant init theandroidseb/pelias_planet_api`
-* start Vagrant: `vagrant up`
+* copy the [Vagrant public box file](./pelias_vm_builder/vagrant_files/Vagrantfile_publicbox) to your machine and name it "Vagrantfile"
+* from the same directory as the Vagrant file, start Vagrant: `vagrant up`
 * wait a few hours
 * (optional) verify that the API is up: `curl http://localhost:4000/v1/search?text=portland`
 * et voilà !
