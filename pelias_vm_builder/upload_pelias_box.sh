@@ -17,10 +17,10 @@ if [ $# -ne 2 ]
 fi
 
 # Checking that our pwd is the same as this file
-if [ $0 != "start_pelias_box.sh" ]
+if [ $0 != "upload_pelias_box.sh" ]
   then
     echo "You must cd to this file's directory before executing it"
     exit
 fi
 
-vagrant cloud publish theandroidseb/pelias_planet_api $2 vitualbox $1 --version-description "Version $2" --release
+vagrant cloud publish theandroidseb/pelias_planet_api $2 vitualbox $1 --version-description "Version $2" --force --release
