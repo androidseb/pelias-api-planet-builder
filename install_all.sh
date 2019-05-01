@@ -7,7 +7,7 @@
 set -e
 
 # Run the config file to import the configured variables
-sh ./config.sh
+. config.sh
 
 ################################################################################
 # Step 1: install base dependencies

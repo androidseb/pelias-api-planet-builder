@@ -55,7 +55,7 @@ The builder machine only needs vagrant installed:
 * Login as root
 * Retrieve this git repo: `git clone https://github.com/androidseb/pelias-api-planet-builder.git`
 * CD to the downloaded git repo `cd pelias-api-planet-builder`
-* Run the Vagrant install file: `sh install_vagrant.sh`
+* Run the Vagrant install file: `./install_vagrant.sh`
 
 
 ### Initial configuration and setup for a runner machine
@@ -65,12 +65,12 @@ The runner machine will host the API and do some redirection with nginx, so it w
 * Retrieve this git repo: `git clone https://github.com/androidseb/pelias-api-planet-builder.git`
 * CD to the downloaded git repo `cd pelias-api-planet-builder`
 * Edit the `config.sh` file to your liking
-* Run the install file: `sh install_all.sh`
+* Run the install file (this will create a dedicated pelias user): `./install_all.sh`
 
 
 ## Building a Pelias planet API Vagrant box
 
-* Login to your `builder machine`
+* Login to your `builder machine` as the dedicated pelias user
 * CD to the project folder: `cd pelias-api-planet-builder`
 * Open a screen session: `screen`
 * Run the build command: `sh build_pelias_box.sh my_pelias_vm_box_file.box`
