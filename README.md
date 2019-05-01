@@ -71,7 +71,7 @@ The runner machine will host the API and do some redirection with nginx, so it w
 ## Building a Pelias planet API Vagrant box
 
 * Login to your `builder machine` as the dedicated pelias user
-* CD to the project folder: `cd pelias-api-planet-builder`
+* Go to the vm builder folder in your home: `cd ~/pelias_vm_builder`
 * Open a screen session: `screen`
 * Run the build command: `sh build_pelias_box.sh my_pelias_vm_box_file.box`
 * Detach the screen by pressing Ctrl+a, and then `"`, and then `d`
