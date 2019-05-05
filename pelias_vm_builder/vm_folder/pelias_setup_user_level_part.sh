@@ -9,20 +9,14 @@ cd $USERHOME
 # create directories
 mkdir code data bin
 
-# TODO: try un-commenting this section and replacing
-# pelias prepare all
-# WITH
-# pelias prepare interpolation
-# pelias prepare placeholder
-#
 # download Valhalla polyline extract to the data dir
-#mkdir data/polylines
-#cd data/polylines
-## getting the latest download link from https://geocode.earth/data and downloading it with wget
-#wget $(curl https://geocode.earth/data|grep https://s3.amazonaws.com/geocodeearth-public-data/osm|cut -d \" -f2)
-##gunzip planet-latest-valhalla.polylines.0sv.gz
-#gunzip planet*.gz
-#cd ../..
+mkdir data/polylines
+cd data/polylines
+# getting the latest download link from https://geocode.earth/data and downloading it with wget
+wget $(curl https://geocode.earth/data|grep https://s3.amazonaws.com/geocodeearth-public-data/osm|cut -d \" -f2)
+gunzip planet-latest-valhalla.polylines.0sv.gz
+mv planet*.0sv extract.0sv
+cd ../..
 
 # clone repo
 cd code
@@ -87,8 +81,12 @@ pelias download all 2>&1 | tee ~/logs_pelias_setup_setup_details_for_download.tx
 curl -XPUT localhost:9200/_cluster/settings -d '{ "transient" : { "threadpool.bulk.queue_size" : 500 } }'
 
 # build all services which have a prepare step
-echo "$(date) - User level setup - prepare all">>~/logs_pelias_setup.txt
-pelias prepare all 2>&1 | tee ~/logs_pelias_setup_setup_details_for_prepare.txt
+# Note: "pelias prepare polylines" is skipped because too heavy on memory for
+# a planet build, and extract.0sv is already downloaded.
+echo "$(date) - User level setup - prepare interpolation">>~/logs_pelias_setup.txt
+pelias prepare interpolation 2>&1 | tee ~/logs_pelias_setup_setup_details_for_prepare_interpolation.txt
+echo "$(date) - User level setup - prepare placeholder">>~/logs_pelias_setup.txt
+pelias prepare placeholder 2>&1 | tee ~/logs_pelias_setup_setup_details_for_prepare_placeholder.txt
 
 # (re)import all data
 echo "$(date) - User level setup - import all">>~/logs_pelias_setup.txt
