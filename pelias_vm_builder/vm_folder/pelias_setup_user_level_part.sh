@@ -76,16 +76,6 @@ pelias elastic create 2>&1 | tee ~/logs_pelias_setup_setup_details_for_es_create
 echo "$(date) - User level setup - download all">>~/logs_pelias_setup.txt
 pelias download all 2>&1 | tee ~/logs_pelias_setup_setup_details_for_download.txt
 
-# Hack to prevent that type of error from happening (from my experience of March 25, 2019):
-# --------------------------------------------------------------------------------
-# error: [dbclient-openstreetmap] [429] type=es_rejected_execution_exception, reason=rejected execution of
-# org.elasticsearch.transport.TransportService$4@2f587374 on EsThreadPoolExecutor[bulk, queue capacity = 50,
-# org.elasticsearch.common.util.concurrent.EsThreadPoolExecutor@74a68e1[Running, pool size = 8,
-# active threads = 8, queued tasks = 50, completed tasks = 30116]]
-# --------------------------------------------------------------------------------
-# See https://github.com/pelias/dbclient/issues/76
-curl -XPUT localhost:9200/_cluster/settings -d '{ "transient" : { "threadpool.bulk.queue_size" : 500 } }'
-
 # build all services which have a prepare step
 echo "$(date) - User level setup - prepare all">>~/logs_pelias_setup.txt
 pelias prepare all 2>&1 | tee ~/logs_pelias_setup_setup_details_for_prepare.txt
