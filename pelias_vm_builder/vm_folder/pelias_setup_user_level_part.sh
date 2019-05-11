@@ -142,16 +142,6 @@ echo "$(date) - Step 5: pelias prepare placeholder => $?">>$MAIN_LOG_FILE_PATH
 # Step 6: pelias import
 ################################################################################
 
-# Hack to prevent that type of error from happening (from my experience of March 25, 2019):
-# --------------------------------------------------------------------------------
-# error: [dbclient-openstreetmap] [429] type=es_rejected_execution_exception, reason=rejected execution of
-# org.elasticsearch.transport.TransportService$4@2f587374 on EsThreadPoolExecutor[bulk, queue capacity = 50,
-# org.elasticsearch.common.util.concurrent.EsThreadPoolExecutor@74a68e1[Running, pool size = 8,
-# active threads = 8, queued tasks = 50, completed tasks = 30116]]
-# --------------------------------------------------------------------------------
-# See https://github.com/pelias/dbclient/issues/76
-curl -XPUT localhost:9200/_cluster/settings -d '{ "transient" : { "threadpool.bulk.queue_size" : 500 } }'
-
 # (re)import whosonfirst data
 echo "$(date) - Step 6: pelias import wof">>$MAIN_LOG_FILE_PATH
 pelias import wof 2>&1 | tee ~/logs_pelias_setup_setup_details_for_import_wof.txt
