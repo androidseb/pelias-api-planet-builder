@@ -1,4 +1,6 @@
-# Pelias API planet builder
+# Pelias API planet builder (WORK IN PROGRESS, NOT PRODUCTION-READY YET)
+
+Please note I'm working on making this entire set of scripts fully functional, and right now they are not fully working. I will remove this message when they fully work.
 
 Utility scripts to build and deploy a full planet Pelias API in just a few commands.
 
