@@ -26,6 +26,17 @@ cp -f ./vagrant_files/Vagrantfile_builder ./Vagrantfile
 # Starting the vagrant VM + run all the build scripts inside (will take days)
 vagrant up
 
+# Wait for the VM to shut down (then end of the setup script will shut down the VM)
+echo "Scanning running VMs and waiting for 0 VMs to be running"
+running_vms_count=$(vboxmanage list runningvms|wc -l)
+while [ $running_vms_count -ne 0 ]
+do
+  sleep 15
+  running_vms_count=$(vboxmanage list runningvms|wc -l)
+done
+echo "No more VMs are running. Waiting 60 seconds just to be safe..."
+sleep 60
+
 # Suspending the vagrant machine
 vagrant suspend
 
