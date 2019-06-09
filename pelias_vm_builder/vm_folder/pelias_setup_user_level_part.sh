@@ -142,6 +142,11 @@ echo "$(date) - Step 5: pelias prepare placeholder => $?">>$MAIN_LOG_FILE_PATH
 # Step 6: pelias import
 ################################################################################
 
+# (re)import polylines data
+echo "$(date) - Step 6: pelias import polylines">>$MAIN_LOG_FILE_PATH
+pelias import polylines 2>&1 | tee ~/logs_pelias_setup_setup_details_for_import_polylines.txt
+echo "$(date) - Step 6: pelias import polylines => $?">>$MAIN_LOG_FILE_PATH
+
 # (re)import whosonfirst data
 echo "$(date) - Step 6: pelias import wof">>$MAIN_LOG_FILE_PATH
 pelias import wof 2>&1 | tee ~/logs_pelias_setup_setup_details_for_import_wof.txt
@@ -156,11 +161,6 @@ echo "$(date) - Step 6: pelias import oa => $?">>$MAIN_LOG_FILE_PATH
 echo "$(date) - Step 6: pelias import osm">>$MAIN_LOG_FILE_PATH
 pelias import osm 2>&1 | tee ~/logs_pelias_setup_setup_details_for_import_osm.txt
 echo "$(date) - Step 6: pelias import osm => $?">>$MAIN_LOG_FILE_PATH
-
-# (re)import polylines data
-echo "$(date) - Step 6: pelias import polylines">>$MAIN_LOG_FILE_PATH
-pelias import polylines 2>&1 | tee ~/logs_pelias_setup_setup_details_for_import_polylines.txt
-echo "$(date) - Step 6: pelias import polylines => $?">>$MAIN_LOG_FILE_PATH
 
 # (re)import geonames data
 echo "$(date) - Step 6: pelias import geonames">>$MAIN_LOG_FILE_PATH
