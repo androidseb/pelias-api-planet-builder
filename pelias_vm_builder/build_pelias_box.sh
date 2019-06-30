@@ -37,8 +37,8 @@ done
 echo "No more VMs are running. Waiting 60 seconds just to be safe..."
 sleep 60
 
-# Suspending the vagrant machine
-vagrant suspend
+# Halting the vagrant machine
+vagrant halt
 
 # Packaging the built vm into a vagrant box
 vagrant package --output $1
