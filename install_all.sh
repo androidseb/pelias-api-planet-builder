@@ -49,6 +49,10 @@ echo "    proxy_pass http://localhost:4000;">>/etc/nginx/sites-enabled/$SERVER_D
 echo "    proxy_set_header X-Real-IP \$remote_addr;">>/etc/nginx/sites-enabled/$SERVER_DOMAIN_NAME
 echo "  }">>/etc/nginx/sites-enabled/$SERVER_DOMAIN_NAME
 echo "}">>/etc/nginx/sites-enabled/$SERVER_DOMAIN_NAME
+
+# Privacy: I don't want to write to disk any user queries, so disabling the access log
+sed -i 's/\/var\/log\/nginx\/access.log/\/dev\/null/g' /etc/nginx/nginx.conf
+
 service nginx restart
 
 
