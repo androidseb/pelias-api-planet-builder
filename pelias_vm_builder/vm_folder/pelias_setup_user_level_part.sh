@@ -49,6 +49,18 @@ echo "COMPOSE_PROJECT_NAME=$USERNAME" > .env
 echo "DOCKER_USER=$(id -u $USERNAME)" >> .env
 echo "DATA_DIR=$USERHOME/data" >> .env
 
+# un-comment this block of sed command calls if you want to
+# update the docker-compose.yml file to avoid exposing the ports to public IPs
+# this will result in external IPs not having access to the following ports:
+# 4000, 4100, 4200, 4300, 4400, 9200 and 9300
+# use this if you're using a reverse proxy like nginx
+#sed -i 's/\"4000:4000\"/\"127.0.0.1:4000:4000\"/g' docker-compose.yml
+#sed -i 's/\"4100:4100\"/\"127.0.0.1:4100:4100\"/g' docker-compose.yml
+#sed -i 's/\"4200:4200\"/\"127.0.0.1:4200:4200\"/g' docker-compose.yml
+#sed -i 's/\"4300:4300\"/\"127.0.0.1:4300:4300\"/g' docker-compose.yml
+#sed -i 's/\"4400:4400\"/\"127.0.0.1:4400:4400\"/g' docker-compose.yml
+#sed -i 's/\"9200:9200\"/\"127.0.0.1:9200:9200\"/g' docker-compose.yml
+#sed -i 's/\"9300:9300\"/\"127.0.0.1:9300:9300\"/g' docker-compose.yml
 
 # Keep running the script even when facing errors, leaving traces of
 # the return codes in the logs with the $? variable
