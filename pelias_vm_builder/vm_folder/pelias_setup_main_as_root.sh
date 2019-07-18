@@ -50,6 +50,7 @@ chmod +x $USERHOME/$USER_SCRIPT_FILE_NAME
 echo "$(date) - Step 3: setup boot script to start pelias on boot">>~/logs_pelias_setup.txt
 echo "@reboot su $USERNAME -c \"sh $USERHOME/start_pelias.sh\""|crontab
 
+
 ################################################################################
 # Step 4: pelias full setup as the user
 ################################################################################

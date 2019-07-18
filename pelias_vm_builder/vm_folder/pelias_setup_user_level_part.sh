@@ -15,7 +15,7 @@ echo "$(date) - Step 1: Download and configure base files">>$MAIN_LOG_FILE_PATH
 cd $USERHOME
 
 # create directories
-mkdir code data bin
+mkdir -p code data bin
 
 # download Valhalla polyline extract to the data dir
 mkdir data/polylines
