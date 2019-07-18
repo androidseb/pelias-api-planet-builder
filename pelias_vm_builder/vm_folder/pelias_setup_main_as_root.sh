@@ -32,6 +32,7 @@ export USER_SCRIPT_FILE_NAME="pelias_setup_user_level_part.sh"
 
 useradd -d $USERHOME -s /bin/bash -m $USERNAME
 usermod -G docker $USERNAME
+chown $USERNAME $USERHOME
 chmod a+x $USERHOME
 
 echo "export USERNAME=$USERNAME">>$USERHOME/.bashrc
