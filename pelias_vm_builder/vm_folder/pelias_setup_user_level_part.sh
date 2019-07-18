@@ -188,4 +188,27 @@ pelias compose up 2>&1 | tee ~/logs_pelias_setup_setup_details_for_compose_up.tx
 echo "$(date) - Step 7: compose up => $?">>$MAIN_LOG_FILE_PATH
 
 
+################################################################################
+# Step 8: cleanup temporary files
+################################################################################
+
+cd $USERHOME/data
+rm -rf openaddresses #(~43GB)
+rm -rf tiger #(~13GB)
+rm -rf openstreetmap #(~46GB)
+rm -rf polylines #(~2.7GB)
+
+# Within the content of the "interpolation" folder (~176GB) we must
+# preserve "street.db" (~7GB) and "address.db" (~25GB), the rest can be deleted
+cd interpolation
+rm -rf -- !("street.db"|"address.db")
+cd ..
+
+# Within the content of the "placeholder" folder (~1.4GB), we must
+# preserve the "store.sqlite3" (~0.9GB) file, the rest can be deleted
+cd placeholder
+rm -rf -- !("store.sqlite3")
+cd ..
+
+
 echo "$(date) - User level setup - Setup completed with success!!!">>~/logs_pelias_setup.txt
