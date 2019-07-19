@@ -12,8 +12,8 @@ set -e
 ################################################################################
 # Step 1: install base dependencies
 ################################################################################
-apt-get update -qq
-apt-get install -y nginx
+DEBIAN_FRONTEND=noninteractive apt-get update -qq
+DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
 
 
 ################################################################################

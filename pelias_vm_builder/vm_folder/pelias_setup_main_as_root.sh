@@ -15,8 +15,8 @@ set -e
 # Step 1: install base dependencies
 ################################################################################
 echo "$(date) - Step 1: install base dependencies">>~/logs_pelias_setup.txt
-apt-get update -qq
-apt-get install -y docker docker-compose nginx
+DEBIAN_FRONTEND=noninteractive apt-get update -qq
+DEBIAN_FRONTEND=noninteractive apt-get install -y docker docker-compose nginx
 
 
 ################################################################################
