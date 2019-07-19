@@ -30,6 +30,6 @@ Vagrant.configure("2") do |config|
 
   # Enable provisioning with a shell script.
   config.vm.provision "shell", inline: <<-SHELL
-    screen -dm bash -c "cd /vagrant_data; sh ./pelias_setup_main_as_root.sh; shutdown now"
+    screen -dm bash -c "cd /vagrant_data; sh vagrant_init_script.sh"
   SHELL
 end
