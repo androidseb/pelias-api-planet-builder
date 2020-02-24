@@ -21,7 +21,7 @@ mkdir -p code data bin
 mkdir data/polylines
 cd data/polylines
 # getting the latest download link from https://geocode.earth/data and downloading it with wget
-wget $(curl https://geocode.earth/data|grep https://s3.amazonaws.com/geocodeearth-public-data/osm|cut -d \" -f2)
+wget $(curl https://geocode.earth/data|sed -r 's/\"/\n/g'|grep ^https://data.geocode.earth/osm)
 gunzip planet-latest-valhalla.polylines.0sv.gz
 mv planet*.0sv extract.0sv
 cd ../..
