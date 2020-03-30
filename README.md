@@ -1,7 +1,5 @@
 # Pelias API planet builder (WORK IN PROGRESS, NOT PRODUCTION-READY YET)
 
-Please note I'm working on making this entire set of scripts fully functional, and right now they are not fully working. I will remove this message when they fully work.
-
 Utility scripts to build and deploy a full planet Pelias API in just a few commands.
 
 Ideal for small apps needing a places search API with a few thousands daily active users.
@@ -20,7 +18,9 @@ I am not willing to invest time to take feature requests at the moment since thi
 
 I have created a Vagrant box Vagrant cloud, and I have a dedicated machine to building new versions continuously.
 
-The easiest way is to use the already built Vagrant box.
+However, due to the large size of the Vagrant box file (about 300GB) combined with a bug in Vagrant cloud (can't handle box files of >60GB it seems), I haven't been able to complete this step.
+
+These would be the steps once I'm able to upload my box, if Vagrant fixes that backend bug (I try uploading from time to time):
 
 * install [Vagrant](https://www.vagrantup.com/downloads.html)
 * copy the [Vagrant public box file](./pelias_vm_builder/vagrant_files/Vagrantfile_publicbox) to your machine and name it "Vagrantfile"
@@ -28,6 +28,7 @@ The easiest way is to use the already built Vagrant box.
 * wait a few hours
 * (optional) verify that the API is up: `curl http://localhost:4000/v1/search?text=portland`
 * et voilà !
+
 
 ## Advanced Usage overview
 
@@ -43,7 +44,7 @@ The `builder machine` and the `runner machine` can be the same machine.
 
 
 ## Minimum hardware requirements
-You will need a machine with at minimum 16GB of RAM and 500GB of disk space. For CPU, the more cores and the faster, the better, since it will speed up your build process. What you pick depends on your patience. If you want to run steps 2 and 3 concurrently, you'll need either 2 machines or a machine with double those capacities.
+You will need a machine with at minimum 16GB of RAM and 1TB of disk space. For CPU, the more cores and the faster, the better, since it will speed up your build process. What you pick depends on your patience. If you want to run steps 2 and 3 concurrently, you'll need either 2 machines or a machine with double those capacities.
 
 
 ## Initial configuration and setup
@@ -79,7 +80,53 @@ The runner machine will host the API and do some redirection with nginx, so it w
 * Detach the screen by pressing Ctrl+a, and then `"`, and then `d`
 * Come back from a few days later to check progress: `screen -r`
 
-To give you an idea of how long this can take, it takes about 14 days on a machine with 8 cores CPU: Intel(R) Xeon(R) CPU W3520 @ 2.67GHz, 32GB of RAM and 2TB of regular HDD (not SSD)
+To give you an idea of how long this can take, it takes about 23 days on a machine with 8 cores CPU: Intel(R) Xeon(R) CPU W3520 @ 2.67GHz, 32GB of RAM and 2TB of regular HDD (not SSD).
+
+Here is the log dump of my last build process:
+```
+Sun Mar  1 17:05:09 UTC 2020 - Step 1: Download and configure base files
+Sun Mar  1 17:09:16 UTC 2020 - User level setup - compose file configuration
+Sun Mar  1 17:09:16 UTC 2020 - Step 2: pelias compose pull
+Sun Mar  1 17:20:47 UTC 2020 - Step 2: pelias compose pull => 0
+Sun Mar  1 17:20:47 UTC 2020 - Step 3: elastic search init - start
+Sun Mar  1 17:20:54 UTC 2020 - Step 3: elastic search init - start => 0
+Sun Mar  1 17:20:54 UTC 2020 - Step 3: elastic search init - wait
+Sun Mar  1 17:21:12 UTC 2020 - Step 3: elastic search init - wait => 0
+Sun Mar  1 17:21:12 UTC 2020 - Step 3: elastic search init - create
+Sun Mar  1 17:21:17 UTC 2020 - Step 3: elastic search init - create => 0
+Sun Mar  1 17:21:17 UTC 2020 - Step 4: pelias download - wof
+Sun Mar  1 18:08:25 UTC 2020 - Step 4: pelias download - wof => 0
+Sun Mar  1 18:08:25 UTC 2020 - Step 4: pelias download - oa
+Mon Mar  2 00:24:03 UTC 2020 - Step 4: pelias download - oa => 0
+Mon Mar  2 00:24:03 UTC 2020 - Step 4: pelias download - osm
+Mon Mar  2 01:41:18 UTC 2020 - Step 4: pelias download - osm => 0
+Mon Mar  2 01:41:18 UTC 2020 - Step 4: pelias download - tiger
+Mon Mar  2 02:34:52 UTC 2020 - Step 4: pelias download - tiger => 0
+Mon Mar  2 02:34:52 UTC 2020 - Step 4: pelias download - transit
+Mon Mar  2 02:34:59 UTC 2020 - Step 4: pelias download - transit => 0
+Mon Mar  2 02:34:59 UTC 2020 - Step 4: pelias download - csv
+Mon Mar  2 02:35:02 UTC 2020 - Step 4: pelias download - csv => 0
+Mon Mar  2 02:35:02 UTC 2020 - Step 5: pelias prepare interpolation
+Wed Mar 18 08:40:53 UTC 2020 - Step 5: pelias prepare interpolation => 0
+Wed Mar 18 08:40:53 UTC 2020 - Step 5: pelias prepare placeholder
+Wed Mar 18 16:30:13 UTC 2020 - Step 5: pelias prepare placeholder => 0
+Wed Mar 18 16:30:13 UTC 2020 - Step 6: pelias import polylines
+Wed Mar 18 21:46:00 UTC 2020 - Step 6: pelias import polylines => 0
+Wed Mar 18 21:46:00 UTC 2020 - Step 6: pelias import wof
+Wed Mar 18 22:49:34 UTC 2020 - Step 6: pelias import wof => 0
+Wed Mar 18 22:49:34 UTC 2020 - Step 6: pelias import oa
+Sat Mar 21 12:30:00 UTC 2020 - Step 6: pelias import oa => 0
+Sat Mar 21 12:30:00 UTC 2020 - Step 6: pelias import osm
+Sun Mar 22 23:15:25 UTC 2020 - Step 6: pelias import osm => 0
+Sun Mar 22 23:15:25 UTC 2020 - Step 6: pelias import geonames
+Mon Mar 23 01:31:37 UTC 2020 - Step 6: pelias import geonames => 0
+Mon Mar 23 01:31:37 UTC 2020 - Step 6: pelias import transit
+Mon Mar 23 01:31:45 UTC 2020 - Step 6: pelias import transit => 0
+Mon Mar 23 01:31:45 UTC 2020 - Step 6: pelias import csv
+Mon Mar 23 01:31:50 UTC 2020 - Step 6: pelias import csv => 0
+Mon Mar 23 01:31:50 UTC 2020 - Step 7: compose up
+Mon Mar 23 01:32:05 UTC 2020 - Step 7: compose up => 0
+```
 
 
 ## Running a Pelias planet API Vagrant box
